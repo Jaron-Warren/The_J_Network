@@ -1,8 +1,11 @@
 <template>
   <div class="about text-center">
-    <h1>Welcome {{ account.name }}</h1>
-    <img class="rounded" :src="account.picture" alt="" />
-    <p>{{ account.email }}</p>
+    <div class="m-3">
+      <Profile />
+    </div>
+  </div>
+  <div v-for="p in posts" :key="p.id">
+    <Post :post="p" />
   </div>
 </template>
 

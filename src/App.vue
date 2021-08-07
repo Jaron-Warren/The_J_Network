@@ -1,12 +1,12 @@
 <template>
   <section class="container-fluid flex-grow-1">
     <div class="row">
-      <div class="col-md-3 py-3 fill">
+      <div class="col-md-3 py-3 bg-dark border border-dark vh-80 rounded-bottom">
         <aside class="row flex-column">
           <Sidebar />
         </aside>
       </div>
-      <div class="col-md-9 px-0 fill">
+      <div class="col-md-9 px-0">
         <header>
           <Navbar />
         </header>
