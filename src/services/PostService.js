@@ -15,6 +15,18 @@ class PostService {
     // logger.log(AppState.postsInfo)
   }
 
+  async getPostsById(id) {
+    try {
+      // logger.log(id)
+      const res = await api.get(`api/profiles/${id}/posts/`)
+      // logger.log(AppState.activeUserPosts)
+      AppState.activeUserPosts = res.data.posts
+      // logger.log(res.data)
+    } catch (error) {
+      logger.log('problem getting user posts')
+    }
+  }
+
   async createProject(project) {
     const res = await api.post('api/posts', project)
     logger.log(res.data)

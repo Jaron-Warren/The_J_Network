@@ -21,10 +21,15 @@
           Home
         </router-link>
       </li>
-      <li class="nav-item">
-        <router-link :to="{ name: 'About' }" class="nav-link">
-          About
-        </router-link>
+      <li class="ml-5 mt-1">
+        <input type="search"
+               name="searchbar"
+               id="jSearch"
+               maxlength="20"
+               minlength="2"
+               placeholder="search"
+        >
+        <i class="ml-1 mdi mdi-magnify"></i>
       </li>
     </ul>
   </nav>
