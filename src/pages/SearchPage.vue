@@ -6,7 +6,8 @@
           <div class="h2">
             People:
           </div>
-          <div v-for="p in profiles" :key="p.id">
+          <!-- REVIEW why does id not exsist on profile but _id does? -->
+          <div v-for="p in profiles" :key="p._id">
             <ProfileResult :profile="p" />
           </div>
           <div class="h2">
@@ -52,7 +53,7 @@ export default {
     return {
       ads: computed(() => AppState.ads),
       posts: computed(() => AppState.posts),
-      profiles: computed(() => AppState.profiles)
+      profiles: computed(() => AppState.profilesquery)
     }
   }
 }

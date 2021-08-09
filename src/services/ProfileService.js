@@ -26,8 +26,8 @@ class ProfileService {
   async getProfilesByQuery() {
     try {
       const res = await api.get('api/profiles?query=' + AppState.query)
-      // logger.log(res.data)
-      AppState.profiles = res.data
+      logger.log(res.data)
+      AppState.profilesquery = res.data
     } catch (error) {
       logger.log('problem getting profiles', error)
     }

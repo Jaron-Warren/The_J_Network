@@ -1,7 +1,7 @@
 <template>
   <div class="profile">
     <div class="Post my-4 col-12">
-      <router-link :to="{ name: 'ProfilePage', params: {id: profile.id } }">
+      <router-link :to="{ name: 'ProfilePage', params: {id: profile._id } }">
         <div class="row shadow bg-light rounded p-3">
           <div class="col-3">
             <img :src="profile.picture" alt="profilePic" class="img-fluid img-thumbnail">
@@ -19,12 +19,19 @@
 </template>
 
 <script>
+import { onMounted } from '@vue/runtime-core'
+import { logger } from '../utils/Logger'
 export default {
   props: {
     profile: {
       type: Object,
       required: true
     }
+  },
+  setup(profile) {
+    onMounted((profile) => {
+      // console.log(profile)
+    })
   }
 }
 </script>

@@ -74,7 +74,7 @@ export default {
     })
     return {
       state,
-      profile: computed(() => AppState.userProfile),
+      profile: computed(() => AppState.user),
       async createPost(post) {
         try {
           await postService.createPost(post)

@@ -10,6 +10,7 @@ export const AppState = reactive({
   userProfile: {},
   posts: [],
   profiles: [],
+  profilesquery: [],
   ads: [],
   postsInfo: {
     page: 0,
