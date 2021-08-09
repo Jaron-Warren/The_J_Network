@@ -6,6 +6,7 @@ export const AppState = reactive({
   activeUserProfile: {},
   activeUserPosts: [],
   account: {},
+  // REVIEW how to keep track of logged on user
   userProfile: {},
   posts: [],
   profiles: [],

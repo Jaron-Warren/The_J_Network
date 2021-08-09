@@ -10,7 +10,7 @@
         <div class="d-flex justify-content-between">
           <b>{{ post.creator.name }}</b>
           <div v-if="account.id === post.creator.id">
-            <button class="btn btn-danger" @click.stop="destroy">
+            <button class="btn btn-danger" @click.stop="destroy(post.id)">
               delete
             </button>
           </div>
@@ -24,7 +24,7 @@
           <img :src="post.imgUrl" alt="Picture" class="img-fluid" v-if="post.imgUrl">
         </div>
         <div class="col-12 text-right">
-          <i class="mdi mdi-thumb-up-outline"></i> <span v-if="post.likes.length > 0">+{{ post.likes.length }}</span>
+          <i class="clicker mdi mdi-thumb-up-outline" @click="likePost(post.id, userProfile)"></i> <span v-if="post.likes.length > 0">+{{ post.likes.length }}</span>
         </div>
       </div>
     </div>
@@ -35,6 +35,7 @@
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { postService } from '../services/PostService'
+import { logger } from '../utils/Logger'
 export default {
   props: {
     post: {
@@ -45,8 +46,16 @@ export default {
   setup() {
     return {
       account: computed(() => AppState.account),
-      destroy() {
-        postService.destroy()
+      userProfile: computed(() => AppState.userProfile),
+      destroy(id) {
+        postService.destroy(id)
+      },
+      likePost(postid, userProfile) {
+        try {
+          postService.likePost(postid, userProfile)
+        } catch (error) {
+          logger.log('problem liking user post')
+        }
       }
     }
   }
@@ -54,5 +63,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.clicker:hover{
+  cursor: pointer;
+}
 </style>

@@ -38,9 +38,21 @@ class PostService {
 
   async createPost(post) {
     try {
-      logger.log(post)
+      // logger.log(post)
       const res = await api.post('api/posts', post)
-      logger.log(res.data)
+      // logger.log(res.data)
+      await this.getAll()
+    } catch (error) {
+      Pop.toast(error, 'error')
+    }
+  }
+
+  async likePost(postid, profile) {
+    try {
+      // logger.log(postid, profile)
+      const res = await api.post(`api/posts/${postid}/like`, profile)
+      // logger.log(res.data)
+      await this.getAll()
     } catch (error) {
       Pop.toast(error, 'error')
     }

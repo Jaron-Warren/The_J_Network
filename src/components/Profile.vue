@@ -28,19 +28,30 @@
       <div class="col-12">
         {{ profile.bio }}
       </div>
-      <div class="col-12 d-flex justify-content-end">
-        <button>edit</button>
+      <div class="col-12 d-flex justify-content-end" v-if="account.id === profile.id">
+        <button data-toggle="modal" :data-target="'#profile-modal-'+profile.id">
+          edit
+        </button>
       </div>
     </div>
   </div>
+  <EditProfileModal :profile="profile" />
 </template>
 
 <script>
+import { computed, onMounted } from '@vue/runtime-core'
+import { AppState } from '../AppState'
+import { logger } from '../utils/Logger'
 export default {
   props: {
     profile: {
       type: Object,
       required: true
+    }
+  },
+  setup(profile) {
+    return {
+      account: computed(() => AppState.account)
     }
   }
 }
