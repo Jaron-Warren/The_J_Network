@@ -16,6 +16,9 @@
     <div class="col-12">
       <div class="row">
         <div class="col-9">
+          <div v-if="user.isAuthenticated">
+            <CreatePost />
+          </div>
           <div v-for="p in posts" :key="p.id">
             <Post :post="p" />
           </div>
@@ -64,6 +67,7 @@ export default {
     })
 
     return {
+      user: computed(() => AppState.user),
       ads: computed(() => AppState.ads),
       posts: computed(() => AppState.posts),
       postsInfo: computed(() => AppState.postsInfo),

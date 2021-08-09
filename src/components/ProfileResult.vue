@@ -1,15 +1,31 @@
 <template>
-  <div class="component">
+  <div class="profile">
+    <div class="Post my-4 col-12">
+      <router-link :to="{ name: 'ProfilePage', params: {id: profile.id } }">
+        <div class="row shadow bg-light rounded p-3">
+          <div class="col-3">
+            <img :src="profile.picture" alt="profilePic" class="img-fluid img-thumbnail">
+          </div>
+          <div class="col-9 text-left">
+            {{ profile.class }}
+            <i class="mdi mdi-school" v-if="profile.graduated"> Alumni member</i>
+            <br>
+            <b>{{ profile.name }}</b>
+          </div>
+        </div>
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Component',
-  setup() {
-    return {}
-  },
-  components: {}
+  props: {
+    profile: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
 

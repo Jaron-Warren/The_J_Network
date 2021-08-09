@@ -42,12 +42,7 @@ export default {
       type: Object,
       required: true
     }
-  },
-  setup() {
-    return {
-    }
-  },
-  components: {}
+  }
 }
 </script>
 

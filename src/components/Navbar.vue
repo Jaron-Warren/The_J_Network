@@ -4,17 +4,6 @@
       <div class="d-flex flex-column align-items-center">
       </div>
     </router-link>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarText"
-      aria-controls="navbarText"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon" />
-    </button>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <router-link :to="{ name: 'Home' }" class="nav-link">
@@ -22,14 +11,11 @@
         </router-link>
       </li>
       <li class="ml-5 mt-1">
-        <input type="search"
-               name="searchbar"
-               id="jSearch"
-               maxlength="20"
-               minlength="2"
-               placeholder="search"
-        >
-        <i class="ml-1 mdi mdi-magnify"></i>
+        <form @submit.prevent="submitSearch(state.query)">
+          <input v-model="state.query" type="text" placeholder="search...">
+          <button type="submit" class="ml-1 mdi mdi-magnify">
+          </button>
+        </form>
       </li>
     </ul>
   </nav>
@@ -39,10 +25,12 @@
 import { AuthService } from '../services/AuthService'
 import { AppState } from '../AppState'
 import { computed, reactive } from 'vue'
+import { router } from '../router'
+import Pop from '../utils/Notifier'
 export default {
   setup() {
     const state = reactive({
-      dropOpen: false
+      query: ''
     })
     return {
       state,
@@ -52,6 +40,17 @@ export default {
       },
       async logout() {
         AuthService.logout({ returnTo: window.location.origin })
+      },
+      async submitSearch(query) {
+        // REVIEW Hacky solution? passing params with router doesn't work
+        AppState.query = query
+        // REVIEW query doesn't reset, can't search again from search page
+        query = ''
+        try {
+          router.push({ name: 'Search' })
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
       }
     }
   }

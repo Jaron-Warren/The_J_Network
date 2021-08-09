@@ -1,5 +1,6 @@
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
+import Pop from '../utils/Notifier'
 import { api } from './AxiosService'
 
 class PostService {
@@ -17,9 +18,7 @@ class PostService {
 
   async getPostsById(id) {
     try {
-      // logger.log(id)
       const res = await api.get(`api/profiles/${id}/posts/`)
-      // logger.log(AppState.activeUserPosts)
       AppState.activeUserPosts = res.data.posts
       // logger.log(res.data)
     } catch (error) {
@@ -27,15 +26,33 @@ class PostService {
     }
   }
 
-  async createProject(project) {
-    const res = await api.post('api/posts', project)
-    logger.log(res.data)
-    await this.getAll()
+  async getPostsByQuery() {
+    try {
+      const res = await api.get('api/posts?query=' + AppState.query)
+      // logger.log(res.data.posts)
+      AppState.posts = res.data.posts
+    } catch (error) {
+      logger.log('problem getting user posts')
+    }
+  }
+
+  async createPost(post) {
+    try {
+      logger.log(post)
+      const res = await api.post('api/posts', post)
+      logger.log(res.data)
+    } catch (error) {
+      Pop.toast(error, 'error')
+    }
   }
 
   async destroy(id) {
-    await api.delete('api/posts/' + id)
-    AppState.posts = AppState.posts.filter(p => p.id !== id)
+    try {
+      await api.delete('api/posts/' + id)
+      AppState.posts = AppState.posts.filter(p => p.id !== id)
+    } catch (error) {
+      Pop.toast(error, 'error')
+    }
   }
 }
 
